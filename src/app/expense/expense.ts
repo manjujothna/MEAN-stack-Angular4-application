@@ -1,7 +1,8 @@
-export interface IExpense {
+export interface ITicket{
     userid?: string;
-    expensedate: string;
-    expensetype: string;
-    expenseamt: string;
-    expensedesc: string;
+    ticketsubject:string;
+      ticketdesc:string;
+    ticketadmin: string;
+    ticketissuse:string;
+    
 }
