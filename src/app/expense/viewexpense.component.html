@@ -1,35 +1,44 @@
 <div class="container pagecontainer">
     <div class="page-header">
-        <h1 style="color:white">View Expense</h1>
+        <h1 style="color:white">View Ticket</h1>
     </div>
     <form class="form-horizontal">
-        <div class="form-group">
-            <label for="expdt" class="col-sm-2 control-label" style="color:white">Date</label>
+      <div class="form-group">
+            <label for="ticsubject" class="col-sm-2 control-label" style="color:white">Subject</label>
             <div class="input-group col-sm-10">
-                <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
-                <div class="form-ele">{{ expense?.expensedate | date: 'd MMM y' }}</div>
+                <div class="form-ele">{{ ticket?.ticketsubject }}</div>
             </div>
         </div>
         <div class="form-group">
-            <label for="exptyp" class="col-sm-2 control-label" style="color:white">Account</label>
+            <label for="ticdesc" class="col-sm-2 control-label" style="color:white">Description</label>
+            <div class="input-group col-sm-10">
+                <div class="form-ele">{{ ticket?.ticketdesc }}</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ticadmin" class="col-sm-2 control-label" style="color:white">Admin</label>
             <div class="input-group col-sm-10">
                 <div class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></div>
-                <div class="form-ele">{{ expense?.expensetype }}</div>
+                <div class="form-ele">{{ ticket?.tickettype }}</div>
             </div>
         </div>
-        <div class="form-group">
-            <label for="expamt" class="col-sm-2 control-label" style="color:white">Amount</label>
+         <div class="form-group">
+            <label for="ticissuse" class="col-sm-2 control-label" style="color:white">issuse</label>
             <div class="input-group col-sm-10">
-                <div class="input-group-addon">$</div>
-                <div class="form-ele">{{ expense?.expenseamt | currency: 'USD':true }}</div>
+                <div class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></div>
+                <div class="form-ele">{{ ticket?.ticketissuse }}</div>
             </div>
         </div>
-        <div class="form-group">
-            <label for="expdesc" class="col-sm-2 control-label" style="color:white">Description</label>
+       <div class="form-group">
+            <label for="tictags" class="col-sm-2 control-label" style="color:white">Tags</label>
             <div class="input-group col-sm-10">
-                <div class="form-ele">{{ expense?.expensedesc }}</div>
+                <div class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></div>
+                <div class="form-ele">{{ ticket?.tickettags }}</div>
             </div>
         </div>
+        
+        
+        
         <div class="form-group">
             <label class="col-sm-2 control-label"></label>
             <div class="col-sm-10">
