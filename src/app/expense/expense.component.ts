@@ -3,42 +3,49 @@ import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ToastrService } from '../common/toastr.service'
-import { ExpenseService } from './expense.service';
+import { TicketService } from './ticket.service';
 import { AuthService } from '../user/auth.service';
 
 @Component({
   templateUrl: './expense.component.html'
 })
 
-export class ExpenseComponent implements OnInit {
+export class TicketComponent implements OnInit {
   
-  expenseForm: FormGroup;
+  ticketForm: FormGroup;
   userObj: any;
-  acc: any = ['Food', 'Fees', 'Rent', 'Fare', 'Travel', 'Hotel', 'Phone', 'Internet', 'Repairs', 'Gas', 'Doctor', 'Books', 'Gift', 'Restaurant', 'Electricity', 'Other'];
-  expid: string;
+  ticsubject:string;
+  ticdesc: string;
+  
+  admin: any = ['manju22pavi@gmail.com', 'remijeous@gmaiil.com', 'chiarro2016@gmail.com', 'sbarunshankar@gmail.com', 'jaya1995rithan@gmail.com', 'karthick1997bhel@gmail.com', 'pavi22@gmail.com', 'poornimanarayanan@gmail.com'];
+  issuses:any =['network problem','virus attack','system resource failiure','others'];
+  tags:any=['test tag','risk','code debug','others'];
+  ticid: string;
   pgTitle: string;
   btnLbl: string;
 
   constructor(private fb: FormBuilder, 
     private authService: AuthService,
-    private expenseService: ExpenseService,
+    private ticketService: TicketService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService,
-    private datePipe: DatePipe) {
+    private toastr: ToastrService
+    ) {
   }
-
-  expdate = new FormControl('', [Validators.required]);
-  expaccount = new FormControl('', [Validators.required]);
-  expamt = new FormControl('', [Validators.required, Validators.pattern('[0-9]+(\.[0-9][0-9]?)?')]);
-  expdesc = new FormControl();
+ticsubject= new FormControl();
+   ticdesc = new FormControl();
+  ticadmin = new FormControl('', [Validators.required]);
+   ticissuse = new FormControl('', [Validators.required]);
+  tictags = new FormControl('', [Validators.required]);
+  
+ 
 
   ngOnInit(){
     
     this.route.params.subscribe((params: any) => {
       if (params.id) {
-        this.expid = params['id'];
-        this.getExpense(this.expid);
+        this.ticid = params['id'];
+        this.getTicket(this.ticid);
         this.pgTitle = "Edit";
         this.btnLbl = "Update"
       } else {
@@ -48,21 +55,23 @@ export class ExpenseComponent implements OnInit {
     });
     
     this.userObj =  this.authService.currentUser;
-    this.expenseForm = this.fb.group({
-      expdate: this.expdate,
-      expaccount: this.expaccount,
-      expamt: this.expamt,
-      expdesc: this.expdesc
+    this.ticketForm = this.fb.group({
+      ticsubject:this.ticsubject,
+      expdesc: this.expdesc,
+       ticadmin: this.ticadmin,
+       ticissuse: this.ticissuse,
+       tictags: this.tictags,
+      
     });
   }
 
-  getExpense(id){
-    this.expenseService.getExpense(id).subscribe(data => {
+  getTicket(id){
+    this.ticketService.getTicket(id).subscribe(data => {
       if (data.success === true) {
         if (data.data[0]) {
           this.populateForm(data.data[0]);
         } else {
-          this.toastr.error('Expense id is incorrect in the URL');
+          this.toastr.error('Ticket id is incorrect in the URL');
           this.router.navigate(['report']);
         }
       }
@@ -70,22 +79,24 @@ export class ExpenseComponent implements OnInit {
   }
 
   populateForm(data): void {
-    this.expenseForm.patchValue({
-      expdate: this.datePipe.transform(data.expensedate, 'y-MM-dd'),
-      expaccount: data.expensetype,
-      expamt: data.expenseamt,
-      expdesc: data.expensedesc
+    this.ticketForm.patchValue({
+      
+      ticadmin: data.tickettype,
+      ticsubject: data.ticketsubject,
+      ticdesc: data.ticketdesc,
+    ticissuse:data.ticketissuse,
+    tictags:data.tickettags
     });
   }
 
-  saveExpense(formdata:any): void {
-    if (this.expenseForm.valid) {
-      const theForm = this.expenseForm.value;
-      if (this.expid !== '') {
-        theForm.expid = this.expid;
+  saveTicket(formdata:any): void {
+    if (this.ticketForm.valid) {
+      const theForm = this.ticketForm.value;
+      if (this.ticid !== '') {
+        theForm.ticid = this.ticid;
       }
       
-      this.expenseService.saveExpense(this.userObj.userid,theForm)
+      this.ticketService.saveTicket(this.userObj.userid,theForm)
         .subscribe(data => {
           if (data.success === false) {
             if (data.errcode){
@@ -96,8 +107,8 @@ export class ExpenseComponent implements OnInit {
           } else {
             this.toastr.success(data.message);
           }
-          if (!this.expid) {
-            this.expenseForm.reset();
+          if (!this.ticid) {
+            this.ticketForm.reset();
           }
       });
     }
