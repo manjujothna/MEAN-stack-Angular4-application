@@ -8,8 +8,8 @@ import 'rxjs/add/observable/throw';
 
 
 @Injectable()
-export class ExpenseService {
-    public appdomain: string ='http://localhost:1978';
+export class TicketService {
+    public appdomain: string ='http://localhost:3000';
     public jwtToken: string;
 
     constructor(private http: Http) {
@@ -19,76 +19,76 @@ export class ExpenseService {
         }
     }
 
-    saveExpense(userid, oExpense){
+    saveTicket(userid, oTicket){
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', `${this.jwtToken}`);
         let options = new RequestOptions({ headers: headers });
                                       //CHANGE IN DEVELOPMENT MODE   !!!!!!!!!!!!!!!
-        // return this.http.post(`http://localhost:1978/api/expense/${userid}`, JSON.stringify(oExpense), options)
-        //     .map((response: Response) => response.json())
-        //     .catch(this.handleError);
+        return this.http.post(`http://localhost:3000/api/ticket/${userid}`, JSON.stringify(oTicket), options)
+             .map((response: Response) => response.json())
+             .catch(this.handleError);
 
-      return this.http.post(`/api/expense/${userid}`, JSON.stringify(oExpense), options)
-        .map((response: Response) => response.json())
-        .catch(this.handleError);
+      //return this.http.post(`/api/expense/${userid}`, JSON.stringify(oExpense), options)
+      //  .map((response: Response) => response.json())
+      //  .catch(this.handleError);
     }
 
-    getExpenses(userid, oExpense) {
+    getTicket(userid, oTicket) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', `${this.jwtToken}`);
         let options = new RequestOptions({ headers: headers });
 
-        // return this.http.post(`http://localhost:1978/api/expense/report/${userid}`, JSON.stringify(oExpense), options)
-        //     .map((response: Response) => response.json())
-        //     .catch(this.handleError);
-      return this.http.post(`/api/expense/report/${userid}`, JSON.stringify(oExpense), options)
-        .map((response: Response) => response.json())
-        .catch(this.handleError);
+         return this.http.post(`http://localhost:3000/api/ticket/report/${userid}`, JSON.stringify(oTicket), options)
+            .map((response: Response) => response.json())
+             .catch(this.handleError);
+    //  return this.http.post(`/api/ticket/report/${userid}`, JSON.stringify(oExpense), options)
+      //  .map((response: Response) => response.json())
+      //  .catch(this.handleError);
     }
 
-    getExpenseTotal(userid, oExpense) {
+    getTicketTotal(userid, oTicket) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', `${this.jwtToken}`);
         let options = new RequestOptions({ headers: headers });
 
-        // return this.http.post(`http://localhost:1978/api/expense/total/${userid}`, JSON.stringify(oExpense), options)
-        //     .map((response: Response) => response.json())
-        //     .catch(this.handleError);
-      return this.http.post(`/api/expense/total/${userid}`, JSON.stringify(oExpense), options)
-        .map((response: Response) => response.json())
-        .catch(this.handleError);
+        return this.http.post(`http://localhost:3000/api/ticket/total/${userid}`, JSON.stringify(oTicket), options)
+           .map((response: Response) => response.json())
+            .catch(this.handleError);
+      //return this.http.post(`/api/expense/total/${userid}`, JSON.stringify(oExpense), options)
+      //  .map((response: Response) => response.json())
+      //  .catch(this.handleError);
     }
 
-    getExpense(expid) {
+    getTicket(ticid) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', `${this.jwtToken}`);
         let options = new RequestOptions({ headers: headers });
 
-        // return this.http.get(`http://localhost:1978/api/expense/${expid}`, options)
-        //     .map((response: Response) => response.json())
-        //     .catch(this.handleError);
-      return this.http.get(`/api/expense/${expid}`, options)
-        .map((response: Response) => response.json())
-        .catch(this.handleError);
+         return this.http.get(`http://localhost:3000/api/ticket/${ticid}`, options)
+           .map((response: Response) => response.json())
+             .catch(this.handleError);
+    //  return this.http.get(`/api/expense/${expid}`, options)
+       // .map((response: Response) => response.json())
+      //  .catch(this.handleError);
     }
 
-    delExpense(expid) {
+    delTicket(ticid) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', `${this.jwtToken}`);
         let options = new RequestOptions({ headers: headers });
 
-        // return this.http.delete(`http://localhost:1978/api/expense/${expid}`, options)
-        //     .map((response: Response) => response.json())
-        //     .catch(this.handleError);heroku
+        return this.http.delete(`http://localhost:3000/api/ticket/${ticid}`, options)
+            .map((response: Response) => response.json())
+           .catch(this.handleError);
 
-      return this.http.delete(`/api/expense/${expid}`, options)
-        .map((response: Response) => response.json())
-        .catch(this.handleError);
+    //  return this.http.delete(`/api/expense/${expid}`, options)
+       // .map((response: Response) => response.json())
+      //  .catch(this.handleError);
     }
 
      private handleError(error: Response) {
