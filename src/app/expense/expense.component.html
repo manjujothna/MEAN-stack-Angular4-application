@@ -1,67 +1,76 @@
 <div class="container pagecontainer">
     <div class="page-header">
-        <h1 style="color:white">{{ pgTitle }} Expense</h1>
+        <h1 style="color:white">{{ pgTitle}}TICKET</h1>
     </div>
 
-    <form [formGroup]="expenseForm" (ngSubmit)="saveExpense(expenseForm.value)" class="form-horizontal" novalidate autocomplete="off">
-        <div class="form-group" [ngClass]="{'has-error': expenseForm.get('expdate').invalid && expenseForm.get('expdate').dirty}">
-            <label for="expdt" class="col-sm-2 control-label" style="color:white">Date</label>
+    <form [formGroup]="ticketForm" (ngSubmit)="saveticket(ticketForm.value)" class="form-horizontal" novalidate autocomplete="off">
+      <div class="form-group">
+            <label for="ticsubject" class="col-sm-2 control-label" style="color:white">Subject</label>
             <div class="input-group col-sm-10">
-                <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
-                <input type="date" class="form-control" id="expdt" [formControl]="expdate" placeholder="yyyy-mm-dd">
+                <textarea class="form-control" id="ticsubject" rows="1" [formControl]="ticsubject" placeholder="Subject"></textarea>
             </div>
-            <div class="text-danger" *ngIf="expenseForm.get('expdate').dirty && expenseForm.get('expdate').errors">
-                <span class="col-sm-2"></span>
-                <span class="col-sm-10" style="padding:4px 0 0" *ngIf="expenseForm.get('expdate').errors.required">
-                    Please enter date
-                </span>
-                <span class="col-sm-10" style="padding:4px 0 0" *ngIf="expenseForm.get('expdate').errors.pattern">
-                    Please enter a valid date
-                </span>
+        </div> 
+      <div class="form-group">
+            <label for="ticdesc" class="col-sm-2 control-label" style="color:white">Description</label>
+            <div class="input-group col-sm-10">
+                <textarea class="form-control" id="ticdesc" rows="3" [formControl]="ticdesc" placeholder="Description"></textarea>
             </div>
         </div>
-        <div class="form-group" [ngClass]="{'has-error': expenseForm.get('expaccount').invalid && expenseForm.get('expaccount').dirty}">
-            <label for="exptyp" class="col-sm-2 control-label" style="color:white">Account</label>
+     
+        <div class="form-group" [ngClass]="{'has-error': ticketForm.get('ticadmin').invalid && ticketForm.get('ticadmin').dirty}">
+            <label for="ticadmin" class="col-sm-2 control-label" style="color:white">Group admin</label>
             <div class="input-group col-sm-10">
                 <div class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></div>
-                <select class="form-control" [formControl]="expaccount">
+                <select class="form-control" [formControl]="ticadmin">
                     <option></option>
-                    <option *ngFor="let a of acc" >{{a}}</option>
+                    <option *ngFor="let a of admin" >{{a}}</option>
                 </select>
             </div>
-            <div class="text-danger" *ngIf="expenseForm.get('expaccount').dirty && expenseForm.get('expaccount').errors">
+            <div class="text-danger" *ngIf="ticketForm.get('ticadmin').dirty && ticketForm.get('ticadmin').errors">
                 <span class="col-sm-2"></span>
-                <span class="col-sm-10" style="padding:4px 0 0" *ngIf="expenseForm.get('expaccount').errors.required">
-                    Please select expense account
+                <span class="col-sm-10" style="padding:4px 0 0" *ngIf="ticketForm.get('ticadmin').errors.required">
+                    Please select Group Admin
                 </span>
             </div>
         </div>
-        <div class="form-group" [ngClass]="{'has-error': expenseForm.get('expamt').invalid && expenseForm.get('expamt').dirty}">
-            <label for="expamt" class="col-sm-2 control-label" style="color:white">Amount</label>
+       <div class="form-group" [ngClass]="{'has-error': ticketForm.get('ticissues').invalid && ticketForm.get('ticissues').dirty}">
+            <label for="ticissuse" class="col-sm-2 control-label" style="color:white">Ticket issuse</label>
             <div class="input-group col-sm-10">
-                <div class="input-group-addon">$</div>
-                <input type="number" class="form-control" id="expamt" [formControl]="expamt" placeholder="Enter amount">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></div>
+                <select class="form-control" [formControl]="ticissues">
+                    <option></option>
+                    <option *ngFor="let issuse of issuses" >{{issuse}}</option>
+                </select>
             </div>
-            <div class="text-danger" *ngIf="expenseForm.get('expamt').dirty && expenseForm.get('expamt').errors">
+            <div class="text-danger" *ngIf="ticketForm.get('ticissuse').dirty && ticketForm.get('ticissuse').errors">
                 <span class="col-sm-2"></span>
-                <span class="col-sm-10" style="padding:4px 0 0" *ngIf="expenseForm.get('expamt').errors.required">
-                    Please enter amount
-                </span>
-                <span class="col-sm-10" style="padding:4px 0 0" *ngIf="expenseForm.get('expamt').errors.pattern">
-                    Please enter a valid amount
+                <span class="col-sm-10" style="padding:4px 0 0" *ngIf="ticketForm.get('ticissuse').errors.required">
+                    Please select issuse
                 </span>
             </div>
         </div>
-        <div class="form-group">
-            <label for="expdesc" class="col-sm-2 control-label" style="color:white">Description</label>
+       <div class="form-group" [ngClass]="{'has-error': ticketForm.get('tictags').invalid && ticketForm.get('tictags').dirty}">
+            <label for="tictags" class="col-sm-2 control-label" style="color:white">Tags</label>
             <div class="input-group col-sm-10">
-                <textarea class="form-control" id="expdesc" rows="3" [formControl]="expdesc" placeholder="Description"></textarea>
+                <div class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></div>
+                <select class="form-control" [formControl]="tictags">
+                    <option></option>
+                    <option *ngFor="let tag of tags" >{{tag}}</option>
+                </select>
+            </div>
+            <div class="text-danger" *ngIf="ticketForm.get('tictags').dirty && ticketForm.get('tictags').errors">
+                <span class="col-sm-2"></span>
+                <span class="col-sm-10" style="padding:4px 0 0" *ngIf="ticketForm.get('tictags').errors.required">
+                    Please select tags
+                </span>
             </div>
         </div>
+       
+       
         <div class="form-group">
             <label class="col-sm-2 control-label"></label>
             <div class="col-sm-10">
-                <button type="submit" [disabled]="expenseForm.invalid" class="btn btn-primary">{{ btnLbl }}</button>
+                <button type="submit" [disabled]="ticketForm.invalid" class="btn btn-primary">{{ btnLbl }}</button>
                 <button type="reset" class="btn btn-default">Cancel</button>
                 <button type="reset" class="btn btn-default" *ngIf="btnLbl == 'Update'" (click)="onBack()">Back</button>
             </div>
