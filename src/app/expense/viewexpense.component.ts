@@ -1,23 +1,23 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ExpenseService } from './expense.service';
+import { TicketService } from './ticket.service';
 import { AuthService } from '../user/auth.service';
 import { ToastrService } from '../common/toastr.service';
 import { Subscription } from 'rxjs/Subscription';
-import { IExpense } from './expense';
+import { ITicket } from './ticket';
 
 @Component({
-  templateUrl: './viewexpense.component.html'
+  templateUrl: './viewticket.component.html'
 })
 
-export class ViewexpenseComponent implements OnInit, OnDestroy {
+export class ViewticketComponent implements OnInit, OnDestroy {
   
-  expense: IExpense;
+  expense: ITicket;
   private sub: Subscription;
 
   constructor(
     private authService: AuthService,
-    private expenseService: ExpenseService,
+    private ticketService: TicketService,
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private router: Router) {
@@ -27,7 +27,7 @@ export class ViewexpenseComponent implements OnInit, OnDestroy {
     this.sub = this.route.params.subscribe(
       params => {
         let id = params['id'];
-        this.getExpense(id);
+        this.getTicket(id);
       });
     }
 
@@ -35,8 +35,8 @@ export class ViewexpenseComponent implements OnInit, OnDestroy {
       this.sub.unsubscribe();
     }
 
-    getExpense(id){
-      this.expenseService.getExpense(id).subscribe(data => {
+    getTicket(id){
+      this.ticketService.getTicket(id).subscribe(data => {
         if (data.success === false) {
           if (data.errcode){
             this.authService.logout();
