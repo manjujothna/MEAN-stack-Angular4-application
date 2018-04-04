@@ -5,11 +5,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
 import { ReportComponent } from './report.component';
-import { ExpenseComponent } from './expense.component';
-import { ViewexpenseComponent } from './viewexpense.component';
+import { TicketComponent } from './ticket.component';
+import { ViewticketComponent } from './viewticket.component';
 import { AuthGuard } from '../user/auth-guard.service';
 import { AuthService } from '../user/auth.service';
-import { ExpenseService } from './expense.service';
+import { TicketService } from './ticket.service';
 
 
 @NgModule({
@@ -19,21 +19,21 @@ import { ExpenseService } from './expense.service';
     ReactiveFormsModule,
     RouterModule.forChild([
       { path: 'report', canActivate: [ AuthGuard], component: ReportComponent },
-      { path: 'expense', canActivate: [ AuthGuard], component: ExpenseComponent },
-      { path: 'expense/:id', canActivate: [ AuthGuard], component: ExpenseComponent },
-      { path: 'expense/view/:id', canActivate: [ AuthGuard], component: ViewexpenseComponent }
+      { path: 'ticket', canActivate: [ AuthGuard], component: TicketComponent },
+      { path: 'ticket/:id', canActivate: [ AuthGuard], component: TicketComponent },
+      { path: 'ticket/view/:id', canActivate: [ AuthGuard], component: ViewticketComponent }
     ])
   ],
   declarations: [
     ReportComponent,
-    ExpenseComponent,
-    ViewexpenseComponent
+    TicketComponent,
+    ViewticketComponent
   ],
   providers: [
     DatePipe,
     AuthService,
     AuthGuard,
-    ExpenseService
+    TicketService
   ]
 })
-export class ExpenseModule {}
+export class TicketModule {}
